@@ -10,4 +10,4 @@ Task 1 prompts the user for how many comparisons they would like to run and whic
 
 Task 2 prompts the user for how many comparisons they would like to run and which two yaml files they would like to compare on the specific run. It should run quickly. 
 
-Task 3 also prompts the user for how many comparisons they would like to run and then automatically runs all comparisons. This could also take some time.
+Task 3 also prompts the user for how many executions they would like to run and then automatically runs all executions. This could also take some time.
