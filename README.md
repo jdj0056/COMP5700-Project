@@ -6,7 +6,7 @@ LLM Used: Gemma-3-1b
 
 All 3 tasks run 'for' loops to allow all combinations to be ran together if preferred.
 
-Task 1 prompts the user for how many comparisons they would like to run and which two pdf files they would like to extract on the specific run. It takes some time to run.
+Task 1 prompts the user for how many extractions they would like to run and which two pdf files they would like to extract on the specific run. It takes some time to run.
 
 Task 2 prompts the user for how many comparisons they would like to run and which two yaml files they would like to compare on the specific run. It should run quickly. 
 
