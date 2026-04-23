@@ -5,7 +5,6 @@ import json
 import zipfile
 import unittest
 
-# --- 1. KUBESCAPE CONTROL MAPPING ---
 KUBESCAPE_MAPPING = {
     "apiserver": "C-0001,C-0066,C-0067",
     "audit": "C-0038,C-0037",
@@ -16,7 +15,6 @@ KUBESCAPE_MAPPING = {
     "authenticator": "C-0031"
 }
 
-# --- FUNCTION 1: Determine Differences & Map Controls ---
 def get_kubescape_controls(diff_names_file, diff_reqs_file, output_file="controls.txt"):
     controls = set()
     def parse_file(path):
@@ -34,10 +32,8 @@ def get_kubescape_controls(diff_names_file, diff_reqs_file, output_file="control
                             for cid in control_ids.split(','):
                                 controls.add(cid)
             return True
-
     diff_names = parse_file(diff_names_file)
     diff_reqs = parse_file(diff_reqs_file)
-    
     with open(output_file, 'w', encoding="utf-8") as f:
         if not diff_names and not diff_reqs:
             f.write("NO DIFFERENCES FOUND")
@@ -47,59 +43,42 @@ def get_kubescape_controls(diff_names_file, diff_reqs_file, output_file="control
             f.write(control_str)
             return control_str
 
-# --- FUNCTION 2: Execute Kubescape Tool ---
 def execute_kubescape_scan(controls_string, zip_path="project-yamls.zip"):
     extract_dir = "temp-yamls"
     output_file = "results.json" 
     results_list = []
-
     if os.path.exists(zip_path):
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
 
-    # 1. Build Command
     if controls_string != "NO DIFFERENCES FOUND" and controls_string.strip():
-        # Remove C-0003 if it causes fatal errors in your version
         clean_ctrls = controls_string.replace("C-0003", "").strip(",")
         cmd = ["kubescape", "scan", "control", clean_ctrls, extract_dir, "--format", "json", "--output", output_file]
     else:
         cmd = ["kubescape", "scan", extract_dir, "--format", "json", "--output", output_file]
-
-    # 2. Run Tool
     try:
         if test == False:
             print(f"Running command: {' '.join(cmd)}")
         result = subprocess.run(cmd, check=False, capture_output=True, text=True)
-        
-        # Fallback if specific controls fail
         if "fatal" in result.stderr.lower() or not os.path.exists(output_file):
             print("Control ID error. Falling back to full scan...")
             cmd_fallback = ["kubescape", "scan", extract_dir, "--format", "json", "--output", output_file]
             subprocess.run(cmd_fallback, capture_output=True, check=False)
-
         if not os.path.exists(output_file) or os.path.getsize(output_file) == 0:
             print(f"Kubescape Error: {result.stderr}")
             return pd.DataFrame()
-
     except FileNotFoundError:
         print("Error: Kubescape not found in PATH.")
         return pd.DataFrame()
-
-    # 3. Load JSON and Parse correctly for Kubescape 4.0
     with open(output_file, 'r') as f:
         try:
             data = json.load(f)
         except json.JSONDecodeError:
             print("Error: JSON file is empty or corrupted.")
             return pd.DataFrame()
-    
-    # UPDATED PARSING LOGIC: Look inside summaryDetails -> controls
     controls_summary = data.get("summaryDetails", {}).get("controls", {})
-    
-    # If summaryDetails isn't there, check for a top-level controls list (older versions)
     if not controls_summary:
         controls_summary = data.get("controls", [])
-
     if isinstance(controls_summary, dict):
         for ctrl_id, info in controls_summary.items():
             results_list.append({
@@ -123,14 +102,11 @@ def execute_kubescape_scan(controls_string, zip_path="project-yamls.zip"):
     
     return pd.DataFrame(results_list)
 
-# --- FUNCTION 3: Generate CSV File ---
 def generate_scan_csv(df, output_csv="kubescape_results.csv"):
     required_headers = ["FilePath", "Severity", "Control name", "Failed resources", "All Resources", "Compliance score"]
     if not df.empty:
-        # Ensure all columns exist before saving
         for col in required_headers:
             if col not in df.columns: df[col] = "N/A"
-        
         df[required_headers].to_csv(output_csv, index=False)
         if test == False:
             print(f"File created: {output_csv}")
@@ -184,7 +160,6 @@ if __name__ == "__main__":
     if test == False:
         names_path = "input1-diff-names.txt"
         reqs_path = "input1-diff-requirements.txt"
-        
         ctrls = get_kubescape_controls(names_path, reqs_path)
         scan_df = execute_kubescape_scan(ctrls)
         generate_scan_csv(scan_df, "input1_kubescape_final.csv")
