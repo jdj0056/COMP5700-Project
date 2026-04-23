@@ -4,7 +4,7 @@ Group Members: Josh Jelich (jdj0056)
 
 LLM Used: Gemma-3-1b
 
-All 3 tasks run 'for' loops to allow all combinations to be ran together if preferred.
+All 3 tasks run 'for' loops to allow all combinations to be ran together if preferred. Otherwise, just enter "1" when prompted with "how many {actions} would you like to perform?'
 
 Task 1 prompts the user for how many extractions they would like to run and which two pdf files they would like to extract on the specific run. It takes some time to run.
 
