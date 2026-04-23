@@ -1,3 +1,5 @@
+Formatting looks better and is easier to understand in the 'code' tab, rather than preview.
+
 Zero-Shot:
 
 Code: base_format = '{"element_key": {"name": "Element Name", "requirements": ["req1", "req2"]}}'
