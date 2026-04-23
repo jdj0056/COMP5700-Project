@@ -2,12 +2,11 @@ import yaml
 import os
 import unittest
 
-COMBINATIONS = [
-    ("cis-r1-kdes.yaml", "cis-r2-kdes.yaml"),
-]
-
-# Comment out the other COMBINATIONS and remove the comment from this one to run all 9 combinations together
 ''' COMBINATIONS = [
+    ("cis-r1-kdes.yaml", "cis-r2-kdes.yaml"),
+] 
+
+ COMBINATIONS = [
     ("cis-r1-kdes.yaml", "cis-r1-kdes.yaml"), ("cis-r1-kdes.yaml", "cis-r2-kdes.yaml"),
     ("cis-r1-kdes.yaml", "cis-r3-kdes.yaml"), ("cis-r1-kdes.yaml", "cis-r4-kdes.yaml"),
     ("cis-r2-kdes.yaml", "cis-r2-kdes.yaml"), ("cis-r2-kdes.yaml", "cis-r3-kdes.yaml"),
