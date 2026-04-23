@@ -158,11 +158,14 @@ test = False
 
 if __name__ == "__main__":
     if test == False:
-        names_path = "input1-diff-names.txt"
-        reqs_path = "input1-diff-requirements.txt"
-        ctrls = get_kubescape_controls(names_path, reqs_path)
-        scan_df = execute_kubescape_scan(ctrls)
-        generate_scan_csv(scan_df, "input1_kubescape_final.csv")
+        comparisons = input("\nHow many comparisons would you like to run?: ").strip()
+        comp = int(comparisons)
+        for i in range(comp):
+            names_path = f"input{i + 1}-diff-names.txt"
+            reqs_path = f"input{i + 1}-diff-requirements.txt"
+            ctrls = get_kubescape_controls(names_path, reqs_path)
+            scan_df = execute_kubescape_scan(ctrls)
+            generate_scan_csv(scan_df, f"input{i + 1}_kubescape_final.csv")
         print("\nTASK 3 COMPLETE.")
     else:
         unittest.main()

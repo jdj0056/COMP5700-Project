@@ -126,18 +126,20 @@ test = False
 
 if __name__ == "__main__":
     if test == False:
-        choice1 = input("\nSelect the first file number (1-4): ").strip()
-        choice2 = input("Select the second file number (1-4): ").strip()
-        run_number = input("Enter the run number: ").strip()
-        f1 = f"cis-r{choice1}-kdes.yaml"
-        f2 = f"cis-r{choice2}-kdes.yaml"
-        print("/nStarting Task 2: Comparator")
-        # for i, (f1, f2) in enumerate(COMBINATIONS):
-        if os.path.exists(f1) and os.path.exists(f2):
-            print(f"Running Input-{run_number}...")
-            data1, data2 = load_yaml_files(f1, f2)
-            compare_element_names(data1, data2, f1, f2, f"input{run_number}-diff-names.txt")
-            compare_element_requirements(data1, data2, f1, f2, f"input{run_number}-diff-requirements.txt")
+        comparisons = input("\nHow many comparisons would you like to run?: ").strip()
+        comp = int(comparisons)
+        for i in range(comp):
+            choice1 = input("\nSelect the first file number (1-4): ").strip()
+            choice2 = input("Select the second file number (1-4): ").strip()
+            f1 = f"cis-r{choice1}-kdes.yaml"
+            f2 = f"cis-r{choice2}-kdes.yaml"
+            print("/nStarting Task 2: Comparator")
+            # for i, (f1, f2) in enumerate(COMBINATIONS):
+            if os.path.exists(f1) and os.path.exists(f2):
+                print(f"Running Input-{i + 1}...")
+                data1, data2 = load_yaml_files(f1, f2)
+                compare_element_names(data1, data2, f1, f2, f"input{i + 1}-diff-names.txt")
+                compare_element_requirements(data1, data2, f1, f2, f"input{i + 1}-diff-requirements.txt")
         print("\nTASK 2 COMPLETE.")
         print("Two YAML files generated for each comparison.")
     else:
