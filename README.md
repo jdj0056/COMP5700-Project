@@ -2,7 +2,7 @@
 
 Group Members: Josh Jelich (jdj0056)
 
-Libraries Used: Gemma-3-1b (LLM), os, re, yaml, json, ollama, pdfplumber
+LLM Used: Gemma-3-1b
 
 Task 1 runs completely automated but may take some time to create the yaml files.
 
