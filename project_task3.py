@@ -158,9 +158,11 @@ test = False
 
 if __name__ == "__main__":
     if test == False:
-        comparisons = input("\nHow many comparisons would you like to run?: ").strip()
+        print("/nStarting Task 3: Executor")
+        comparisons = input("\nHow many executions would you like to run?: ").strip()
         comp = int(comparisons)
         for i in range(comp):
+            print(f"\nRunning Input-{i+1}")
             names_path = f"input{i + 1}-diff-names.txt"
             reqs_path = f"input{i + 1}-diff-requirements.txt"
             ctrls = get_kubescape_controls(names_path, reqs_path)

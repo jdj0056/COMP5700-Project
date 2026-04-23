@@ -20,9 +20,11 @@ def zero_shot(text):
             f"Format: {base_format}\nText: {text[:1500]}")
 
 def few_shot(text):
+    base_format = '{"element_key": {"name": "Element Name", "requirements": ["req1", "req2"]}}'
     example = '{"etcd": {"name": "etcd", "requirements": ["Ensure 2700 port is closed"]}}'
     return (f"Extract security entities and requirements from this text as JSON. "
-            f"Example: {example}\nText: {text[:1500]}")
+            f"Follow this example: {example} "
+            f"Format: {base_format}\nText: {text[:1500]}")
 
 def chain_of_though(text):
     base_format = '{"element_key": {"name": "Element Name", "requirements": ["req1", "req2"]}}'
@@ -139,20 +141,24 @@ if __name__ == "__main__":
     if test == False:
         all_logs = []
         pdf_cache = {}
+        comparisons = input("\nHow many extractions would you like to perform?: ").strip()
+        comp = int(comparisons)
         print("Starting Task 1: Extractor")
-        for idx, (doc_a, doc_b) in enumerate(COMBINATIONS):
-            print(f"\n[Input-{idx+1}] Pair: {doc_a} & {doc_b}")
-            for doc in [doc_a, doc_b]:
-                if doc not in pdf_cache:
-                    kdes, logs = process_pdf(doc)
+        for i in range(comp):
+            print(f"\nRunning Input-{i+1}")
+            choice1 = input("\nSelect the first file number (1-4): ").strip()
+            choice2 = input("Select the second file number (1-4): ").strip()
+            f1 = f"cis-r{choice1}.pdf"
+            f2 = f"cis-r{choice2}.pdf"
+            print(f"Pair: {f1} & {f2}")
+            for f in [f1, f2]:
+                    kdes, logs = process_pdf(f)
                     if kdes:
-                        out_name = doc.replace(".pdf", "-kdes.yaml")
+                        out_name = f.replace(".pdf", "-kdes.yaml")
                         with open(out_name, 'w', encoding="utf-8") as f:
                             yaml.dump(kdes, f, allow_unicode=True)
-                        pdf_cache[doc] = out_name
+                        pdf_cache[f] = out_name
                         all_logs.extend(logs)
-                else:
-                    print(f"  Using cached results for {doc}")
 
         with open("llm_logs.txt", "w", encoding="utf-8") as f:
             for entry in all_logs:
@@ -161,7 +167,6 @@ if __name__ == "__main__":
                 f.write("-" * 40 + "\n")
                 
         print("\n TASK 1 COMPLETE.")
-        print(f"Generated YAMLs: {list(pdf_cache.values())}")
-        print("Generated Logs: llm_logs.txt")
+        print("YAMLs and logs generated.")
     else:
         unittest.main()
