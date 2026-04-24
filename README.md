@@ -28,8 +28,8 @@ GitHub Actions Link: https://github.com/jdj0056/COMP5700-Project/actions
 
 All 3 tasks run automatically for all 9 combinations to be tested.
 
-Task 1 will likely take the longest of the 3 to run, with task 2 being very quick, and task 3 being in the middle.
+Task 1 will take the longest of the 3 to run, with task 2 being very quick, and task 3 being in the middle.
 
 * Task 1 will occasionally crash in a random spot, I believe it has something to do with Gemma rather than the code itself. Tasks 2-3 will still operate as normal if it does crash. I recommend running it again if it does crash.
 
-If there is no way to get the code running, I have uploaded a zip file of everything generated from my run of main.exe, link to a video of the run: (add)
+If there is no way to get the code running to test it, I have uploaded a zip file of everything generated from my run of main.exe, also here is a link to the video of the run if needed: https://youtu.be/_5BcaABhupQ?si=OJR4XYmlDCg1C4go
