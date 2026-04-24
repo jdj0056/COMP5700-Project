@@ -126,9 +126,8 @@ test = False
 if __name__ == "__main__":
     if test == False:
         print("/nStarting Task 2: Comparator")
-        comparisons = input("\nHow many comparisons would you like to run?: ").strip()
-        comp = int(comparisons)
-        for i in range(comp):
+        comparisons = 9
+        for i in range(comparisons):
             print(f"\nRunning Input-{i + 1}.")
             choice1 = input("\nSelect the first file number (1-4): ").strip()
             choice2 = input("Select the second file number (1-4): ").strip()

@@ -104,7 +104,7 @@ class TestTask1(unittest.TestCase):
     def test_few_shot(self):
         text = "Test input"
         result = few_shot(text)
-        self.assertIn("Example:", result)
+        self.assertIn("Follow this example:", result)
         self.assertIn("etcd", result)
 
     def test_chain_of_though(self):
@@ -141,10 +141,9 @@ if __name__ == "__main__":
     if test == False:
         all_logs = []
         pdf_cache = {}
-        comparisons = input("\nHow many extractions would you like to perform?: ").strip()
-        comp = int(comparisons)
+        comparisons = 9
         print("Starting Task 1: Extractor")
-        for i in range(comp):
+        for i in range(comparisons):
             print(f"\nRunning Input-{i+1}")
             choice1 = input("\nSelect the first file number (1-4): ").strip()
             choice2 = input("Select the second file number (1-4): ").strip()
