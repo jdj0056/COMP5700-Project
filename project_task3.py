@@ -161,7 +161,7 @@ test = False
 
 if __name__ == "__main__":
     if test == False:
-        print("/nStarting Task 3: Executor")
+        print("Starting Task 3: Executor")
         comparisons = 9
         for i in range(comparisons):
             print(f"\nRunning Input-{i+1}")
