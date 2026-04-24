@@ -6,13 +6,13 @@ LLM Used: Gemma-3-1b
 
 To run the project:
 
-1. Download all 4 pdf files, the yaml.zip file, the binary file, and the 3 project_task.py files; ensure they are in the same folder (Ex. Downloads).
+1. Download all of the files, or fork the repository, and ensure they are all in the same folder (Ex. Downloads).
 
-2. Open a terminal and navigate to the folder that these files are located in.
+2. Open a terminal and navigate to the folder that these files are located in using the `cd (folder)`.
 
-3. Run the binary file using: `(add command in)` (UNFINISHED)
+3. Run the binary file using: `.\main.exe`
 
-If the binary/bash doesn't run for whatever reason, or you want to run the files individually:
+If the binary doesn't run for whatever reason, or you want to run the files individually:
 
 1. Repeat the first two steps from above.
 
@@ -22,7 +22,7 @@ If the binary/bash doesn't run for whatever reason, or you want to run the files
 
 4. Run `curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash`
 
-5. Run `python project_task(num).py` (Ex. running task 1 would be `python project_task1.py`), or `python main.py` to run all 3 at once.
+5. Run `python project_task(num).py` (Ex. running task 1 would be `python project_task1.py`), or `python main.py` to run all 3 at once (You can skip steps 2-4 if you do this, as main.py will check these automatically.)
 
 GitHub Actions Link: https://github.com/jdj0056/COMP5700-Project/actions
 
@@ -31,3 +31,5 @@ All 3 tasks run automatically for all 9 combinations to be tested.
 Task 1 will likely take the longest of the 3 to run, with task 2 being very quick, and task 3 being in the middle.
 
 * Task 1 will occasionally crash in a random spot, I believe it has something to do with Gemma rather than the code itself. Tasks 2-3 will still operate as normal if it does crash. I recommend running it again if it does crash.
+
+If there is no way to get the code running, I have uploaded a zip file of everything generated from my run of main.exe, link to a video of the run: (add)
