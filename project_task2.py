@@ -2,17 +2,13 @@ import yaml
 import os
 import unittest
 
-''' COMBINATIONS = [
-    ("cis-r1-kdes.yaml", "cis-r2-kdes.yaml"),
-] 
-
- COMBINATIONS = [
+COMBINATIONS = [
     ("cis-r1-kdes.yaml", "cis-r1-kdes.yaml"), ("cis-r1-kdes.yaml", "cis-r2-kdes.yaml"),
     ("cis-r1-kdes.yaml", "cis-r3-kdes.yaml"), ("cis-r1-kdes.yaml", "cis-r4-kdes.yaml"),
     ("cis-r2-kdes.yaml", "cis-r2-kdes.yaml"), ("cis-r2-kdes.yaml", "cis-r3-kdes.yaml"),
     ("cis-r2-kdes.yaml", "cis-r4-kdes.yaml"), ("cis-r3-kdes.yaml", "cis-r3-kdes.yaml"),
     ("cis-r3-kdes.yaml", "cis-r4-kdes.yaml")
-] '''
+]
 
 def load_yaml_files(file_path1, file_path2):
     def normalize(data):
@@ -125,14 +121,11 @@ test = False
 
 if __name__ == "__main__":
     if test == False:
-        print("/nStarting Task 2: Comparator")
+        print("Starting Task 2: Comparator")
         comparisons = 9
-        for i in range(comparisons):
+        for i, (f1, f2) in enumerate(COMBINATIONS):
             print(f"\nRunning Input-{i + 1}.")
-            choice1 = input("\nSelect the first file number (1-4): ").strip()
-            choice2 = input("Select the second file number (1-4): ").strip()
-            f1 = f"cis-r{choice1}-kdes.yaml"
-            f2 = f"cis-r{choice2}-kdes.yaml"
+            print(f"Pair: {f1} & {f2}")
             if os.path.exists(f1) and os.path.exists(f2):
                 data1, data2 = load_yaml_files(f1, f2)
                 compare_element_names(data1, data2, f1, f2, f"input{i + 1}-diff-names.txt")
