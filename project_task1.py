@@ -153,7 +153,7 @@ if __name__ == "__main__":
                             out_name = f.replace(".pdf", "-kdes.yaml")
                             with open(out_name, 'w', encoding="utf-8") as f:
                                 yaml.dump(kdes, f, allow_unicode=True)
-                            pdf_cache[f] = f
+                            pdf_cache[f] = out_name
                             all_logs.extend(logs)
                     else:
                         print(f"Using cached data for {f}")
