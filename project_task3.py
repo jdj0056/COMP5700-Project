@@ -162,9 +162,8 @@ test = False
 if __name__ == "__main__":
     if test == False:
         print("/nStarting Task 3: Executor")
-        comparisons = input("\nHow many executions would you like to run?: ").strip()
-        comp = int(comparisons)
-        for i in range(comp):
+        comparisons = 9
+        for i in range(comparisons):
             print(f"\nRunning Input-{i+1}")
             names_path = f"input{i + 1}-diff-names.txt"
             reqs_path = f"input{i + 1}-diff-requirements.txt"
