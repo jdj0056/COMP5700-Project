@@ -143,22 +143,20 @@ if __name__ == "__main__":
         pdf_cache = {}
         comparisons = 9
         print("Starting Task 1: Extractor")
-        for i in range(comparisons):
+        for i, (f1, f2) in enumerate(COMBINATIONS):
             print(f"\nRunning Input-{i+1}")
-            choice1 = input("\nSelect the first file number (1-4): ").strip()
-            choice2 = input("Select the second file number (1-4): ").strip()
-            f1 = f"cis-r{choice1}.pdf"
-            f2 = f"cis-r{choice2}.pdf"
             print(f"Pair: {f1} & {f2}")
             for f in [f1, f2]:
-                    kdes, logs = process_pdf(f)
-                    if kdes:
-                        out_name = f.replace(".pdf", "-kdes.yaml")
-                        with open(out_name, 'w', encoding="utf-8") as f:
-                            yaml.dump(kdes, f, allow_unicode=True)
-                        pdf_cache[f] = out_name
-                        all_logs.extend(logs)
-
+                    if f not in pdf_cache:
+                        kdes, logs = process_pdf(f)
+                        if kdes:
+                            out_name = f.replace(".pdf", "-kdes.yaml")
+                            with open(out_name, 'w', encoding="utf-8") as f:
+                                yaml.dump(kdes, f, allow_unicode=True)
+                            pdf_cache[f] = f
+                            all_logs.extend(logs)
+                        else:
+                            print(f"Using cached data for {f}")
         with open("llm_logs.txt", "w", encoding="utf-8") as f:
             for entry in all_logs:
                 f.write(f"*LLM Name*\n{MODEL_NAME}\n*Prompt Type*\n{entry['type']}\n")
