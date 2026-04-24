@@ -1,0 +1,28 @@
+name: Project CI Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ollama pdfplumber PyYAML pandas pyinstaller
+
+      - name: Run Task 1 Unit Tests
+        run: python -c "import project_task1; project_task1.test=True; import unittest; unittest.main(module=project_task1, exit=True)"
+
+      - name: Run Task 2 Unit Tests
+        run: python -c "import project_task2; project_task2.test=True; import unittest; unittest.main(module=project_task2, exit=True)"
+
+      - name: Run Task 3 Unit Tests
+        run: python -c "import project_task3; project_task3.test=True; import unittest; unittest.main(module=project_task3, exit=True)"
